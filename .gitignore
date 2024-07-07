@@ -28,3 +28,6 @@
 
 # Fichiers de sauvegarde de l'éditeur
 *~
+
+# Fichiers de coverage
+/coverage
