@@ -1,0 +1,30 @@
+# Fichiers et dossiers générés par l'environnement de développement
+/node_modules
+/.vscode
+/.idea
+
+# Fichiers de build
+/build
+/dist
+
+# Fichiers de dépendances
+/package-lock.json
+/yarn.lock
+
+# Fichiers de configuration
+/.env
+/.env.local
+
+# Fichiers de logs
+/logs
+
+# Fichiers de sauvegarde
+*.bak
+*.swp
+*.tmp
+
+# Fichiers de cache
+/.cache
+
+# Fichiers de sauvegarde de l'éditeur
+*~
