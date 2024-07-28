@@ -1,13 +1,14 @@
 import { Client } from "discord.js";
-import AbstractSlashCommands from "../commands/slashcommands/AbstractSlashCommands";
+import AbstractSlashCommand from "../commands/slashcommands/AbstractSlashCommand";
 import PingCommand from "../commands/slashcommands/PingCommand";
 import ICommandLoader from "../interfaces/ICommandLoader";
 import IConfigManager from "../../infrastructure/interfaces/IConfigManager";
+import Bot from "../Bot";
 
 
 export default class SlashCommandLoader implements ICommandLoader {
     public config: IConfigManager;
-    public commands: AbstractSlashCommands[] = [
+    public commands: AbstractSlashCommand[] = [
         new PingCommand()
     ]
 
@@ -21,7 +22,9 @@ export default class SlashCommandLoader implements ICommandLoader {
 
     public load(client: Client): void {
         this.commands.forEach(async command => {
+            Bot.getInstance().logger.debug(`Initializing command ${command.name}...`);
             await command.init(client);
+            Bot.getInstance().logger.debug(`Initialized command ${command.name}`);
         });
 
         client.on("interactionCreate", async interaction => {

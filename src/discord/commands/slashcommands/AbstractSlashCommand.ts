@@ -3,7 +3,7 @@ import ICommand from "../../interfaces/ICommand";
 import { CommandType } from "../../types/CommandType";
 
 
-export default abstract class AbstractSlashCommands implements ICommand {
+export default abstract class AbstractSlashCommand implements ICommand {
     public abstract name: string;
     public abstract description: string;
     public abstract intents: BitFieldResolvable<GatewayIntentsString, number>;

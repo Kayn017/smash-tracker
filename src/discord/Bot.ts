@@ -4,16 +4,33 @@ import SlashCommandLoader from './loaders/SlashCommandLoader';
 import EnvConfigManager from '../infrastructure/config/EnvConfigManager';
 import AdminCommandLoader from './loaders/AdminCommandLoader';
 import IConfigManager from '../infrastructure/interfaces/IConfigManager';
+import PinoLogger, { ILogger } from '../infrastructure/Logger';
 
 export default class Bot {
+    public logger: ILogger;
+    
     private client: Client;
     private configManagers: IConfigManager[];
     private commandLoaders: ICommandLoader[];
 
-    constructor() {
+    private static instance: Bot;
+
+    public static getInstance() {
+        if (!this.instance) {
+            this.instance = new Bot();
+        }
+
+        return this.instance;
+    }
+
+    private constructor() {
         this.configManagers = [
             new EnvConfigManager()
         ];
+
+        this.logger = new PinoLogger(this.configManagers[0]);
+
+        this.logger.info('Bot is starting...');
         
         this.commandLoaders = [
             new SlashCommandLoader(this.configManagers[0]),
@@ -27,7 +44,7 @@ export default class Bot {
 
     public async start() {
         this.client.once('ready', async () => {
-            console.log(`Logged in as ${this.client.user?.tag}`);
+            this.logger.info(`Logged in as ${this.client.user?.tag}`);
             
             this.commandLoaders.forEach(cl => cl.load(this.client));
         });

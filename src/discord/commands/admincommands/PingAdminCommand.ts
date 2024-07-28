@@ -7,15 +7,11 @@ export default class PingAdminCommand extends AbstractAdminCommand{
     public description = "Ping!";
     public intents = [IntentsBitField.Flags.DirectMessages];
 
-    public async init(): Promise<void> {
-        console.log("PingAdminCommand initialized!");
-    }
+    public async init(): Promise<void> {}
 
     public async execute(payload: Message): Promise<void> {
         await payload.reply("Pong!");
     }
 
-    public async shutdown(): Promise<void> {
-        console.log("PingAdminCommand shutdown!");
-    }
+    public async shutdown(): Promise<void> {}
 }
