@@ -11,7 +11,7 @@ export class EnvConfigAdapter implements ConfigPort {
         const parsed = ConfigSchema.safeParse(process.env);
 
         if (!parsed.success) {
-            const message = "❌ Invalid environment configuration\n";
+            let message = "❌ Invalid environment configuration\n";
 
             for (const issue of parsed.error.issues) {
                 message += `  - ${issue.path.join(".")}: ${issue.message}\n`;
