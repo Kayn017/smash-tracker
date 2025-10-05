@@ -6,5 +6,5 @@ export interface ConfigPort {
 export interface Config {
   NODE_ENV: "development" | "production" | "test";
   DISCORD_TOKEN: string;
-  DISCORD_DEV_GUILD_ID: string | undefined;
+  DISCORD_DEV_GUILD_ID?: string;
 }

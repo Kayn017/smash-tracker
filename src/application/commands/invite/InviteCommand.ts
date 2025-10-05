@@ -1,6 +1,5 @@
 import { Command } from "@sapphire/framework";
-import { ChatInputCommandInteraction } from "discord.js";
-
+import { ChatInputCommandInteraction, MessageFlags, SlashCommandBuilder } from "discord.js";
 
 export default class InviteCommand extends Command {
     public constructor(context: Command.LoaderContext, options: Command.Options) {
@@ -15,15 +14,26 @@ export default class InviteCommand extends Command {
     public override async chatInputRun(interaction: ChatInputCommandInteraction) {
         const link = `https://discord.com/oauth2/authorize?client_id=${interaction.client.user?.id}&scope=bot+applications.commands&permissions=8`;
 
-        return interaction.reply({ content: `Voici le lien d'invitation du bot : ${link}`, ephemeral: true });
+        return interaction.reply({ 
+            content: `Voici le lien d'invitation du bot : ${link}`, 
+            flags: MessageFlags.Ephemeral 
+        });
     }
 
     public override registerApplicationCommands(registry: Command.Registry) {
-        registry.registerChatInputCommand(builder => {
+        const builderFn = (builder: SlashCommandBuilder) => {
             builder
                 .setName(this.name)
                 .setDescription(this.description);
-                // TODO : déclarer la commande pour le guild de dev si en dev
+        }
+        
+        registry.registerChatInputCommand(builderFn, {
+            guildIds: this.container.config.get("NODE_ENV") === "development" && typeof this.container.config.get("DISCORD_DEV_GUILD_ID") === "string"
+                ? [this.container.config.get("DISCORD_DEV_GUILD_ID") as string]
+                : undefined,
+            idHints: this.container.config.get("NODE_ENV") === "development" && typeof this.container.config.get("DISCORD_DEV_GUILD_ID") === "string"
+                ? []
+                : ["1424524704580112514"] // TODO : a garder ou pas ? 
         })
     }
 }
