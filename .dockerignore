@@ -1,0 +1,25 @@
+# Dependencies
+node_modules
+pnpm-lock.yaml.save
+
+# Build output
+/dist
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Env
+.env
+.env.*
+
+# VCS
+.git
+.gitignore
+
+# Editor/project files
+.vscode
+.idea
+.DS_Store

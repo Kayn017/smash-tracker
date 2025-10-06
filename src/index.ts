@@ -1,5 +1,4 @@
 import { createApp } from "./application/bootstrap/createApp";
-import { ConfigPort } from "./domain/config/ConfigPort";
 import { EnvConfigAdapter } from "./infrastructure/config/EnvConfigAdapter";
 import { SapphireLoggerAdapter } from "./infrastructure/logging/SapphireLoggerAdapter";
 
